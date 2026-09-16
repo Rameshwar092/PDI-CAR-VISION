@@ -102,7 +102,7 @@ const BRANDS = [
   "Kia", "Skoda", "Volkswagen", "MG", "Renault", "Nissan",
 ];
 
-const WHATSAPP_NUMBER = "918274007600"; // placeholder — replace with client's number
+const WHATSAPP_NUMBER = "918800769789"; // placeholder — replace with client's number
 
 /* ------------------------------------------------------------------ */
 /* Small shared bits                                                    */
