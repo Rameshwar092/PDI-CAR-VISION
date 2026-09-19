@@ -1,5 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
 
+import bannerYard from "./images/banner-yard.png";
+import diagnosticCloseup from "./images/diagnostic-closeup.png";
+import handoverImg from "./images/handover.png";
+import portraitImg from "./images/portrait.png";
+import serviceEngine from "./images/service-engine.png";
+import serviceMechanical from "./images/service-mechanical.png";
+import serviceElectronics from "./images/service-electronics.png";
+import serviceBattery from "./images/service-battery.png";
+import servicePaint from "./images/service-paint.png";
+import serviceInterior from "./images/service-interior.png";
+import avatarKM from "./images/avatar-km.png";
+import avatarPN from "./images/avatar-pn.png";
+import avatarSB from "./images/avatar-sb.png";
+
 /* ------------------------------------------------------------------ */
 /* Data                                                                 */
 /* ------------------------------------------------------------------ */
@@ -36,36 +50,42 @@ const SERVICES = [
     name: "Engine & drivetrain diagnosis",
     desc: "Compression, idle behaviour, fluid condition, leak checks.",
     points: ["Engine oil level & condition", "Coolant level & leak check", "Idle stability & unusual noise scan"],
+    img: serviceEngine,
   },
   {
     code: "MC-02",
     name: "Mechanical & suspension scan",
     desc: "Underbody, brakes, steering linkages, wheel alignment.",
     points: ["Underbody corrosion & damage check", "Brake pad thickness & disc condition", "Steering play & suspension bushings"],
+    img: serviceMechanical,
   },
   {
     code: "EC-03",
     name: "Electronics & ECU read-out",
     desc: "OBD fault codes, infotainment, sensors, software version.",
     points: ["OBD-II fault code scan", "Infotainment & camera function check", "Sensor calibration read-out"],
+    img: serviceElectronics,
   },
   {
     code: "BT-04",
     name: "Battery & tyre health",
     desc: "Cranking voltage, charge state, tread depth, manufacture date.",
     points: ["Battery voltage & load test", "Tyre tread depth, all 4 + spare", "Tyre manufacture date check"],
+    img: serviceBattery,
   },
   {
     code: "PT-05",
     name: "Paint & body diagnosis",
     desc: "Paint-depth gauge scan for repainted or repaired panels.",
     points: ["Paint thickness scan, all panels", "Panel gap & alignment check", "Dent, scratch & touch-up log"],
+    img: servicePaint,
   },
   {
     code: "IN-06",
     name: "Interior & fitment check",
     desc: "Panel gaps, upholstery, electricals, accessory fitment.",
     points: ["Upholstery & trim inspection", "Power windows, AC & electricals", "Accessory & kit fitment check"],
+    img: serviceInterior,
   },
 ];
 
@@ -82,18 +102,21 @@ const TESTIMONIALS = [
       "The report flagged a repainted rear quarter panel the showroom never mentioned. Saved me from a bad delivery day.",
     name: "Karan Mehta",
     car: "New SUV, top variant",
+    avatar: avatarKM,
   },
   {
     quote:
       "Technician walked me through every checkpoint on call before I signed the delivery form. Worth every rupee.",
     name: "Priya Nair",
     car: "New hatchback",
+    avatar: avatarPN,
   },
   {
     quote:
       "Found a low coolant level and a loose battery terminal — both fixed by the dealer before I took the car home.",
     name: "Sameer Bhalla",
     car: "New sedan",
+    avatar: avatarSB,
   },
 ];
 
@@ -213,9 +236,11 @@ function HomePage({ onNavigate }) {
       </section>
 
       <section className="pdi-banner">
-        <ImagePlaceholder
-          caption="Banner photo: technician inspecting a car at the dealer yard, wide shot"
-          ratio="21/7"
+        <img
+          src={bannerYard}
+          alt="Technician inspecting a car at the dealer yard"
+          className="pdi-real-img"
+          style={{ aspectRatio: "21/7" }}
         />
       </section>
 
@@ -234,7 +259,12 @@ function HomePage({ onNavigate }) {
               ))}
             </div>
           </div>
-          <ImagePlaceholder caption="Close-up: OBD scanner plugged into a car's diagnostic port" ratio="4/5" />
+          <img
+            src={diagnosticCloseup}
+            alt="OBD scanner plugged into a car's diagnostic port"
+            className="pdi-real-img"
+            style={{ aspectRatio: "4/5" }}
+          />
         </div>
       </section>
 
@@ -252,7 +282,7 @@ function HomePage({ onNavigate }) {
           <div className="pdi-service-grid" style={{ marginTop: 40 }}>
             {SERVICES.map((s) => (
               <div className="pdi-service" key={s.code}>
-                <ImagePlaceholder caption={`Photo: ${s.name.toLowerCase()}`} ratio="16/10" className="pdi-service-img" />
+                <img src={s.img} alt={s.name} className="pdi-real-img pdi-service-img" style={{ aspectRatio: "16/10" }} />
                 <div className="pdi-service-code">{s.code}</div>
                 <h3>{s.name}</h3>
                 <p>{s.desc}</p>
@@ -268,9 +298,7 @@ function HomePage({ onNavigate }) {
           <div className="pdi-quote-box">
             <p className="pdi-quote-text">"{TESTIMONIALS[activeQuote].quote}"</p>
             <div className="pdi-quote-meta pdi-quote-meta-row">
-              <div className="pdi-avatar-placeholder" aria-hidden="true">
-                {TESTIMONIALS[activeQuote].name.split(" ").map((n) => n[0]).join("")}
-              </div>
+              <img src={TESTIMONIALS[activeQuote].avatar} alt="" className="pdi-avatar-img" aria-hidden="true" />
               <div>
                 <span>{TESTIMONIALS[activeQuote].name}</span>
                 <span className="pdi-muted"> — {TESTIMONIALS[activeQuote].car}</span>
@@ -314,7 +342,7 @@ function AboutPage({ onNavigate }) {
               published checklist, and every report goes to the buyer first.
             </p>
           </div>
-          <ImagePlaceholder caption="Photo: founder or lead technician portrait, workshop setting" ratio="4/5" />
+          <img src={portraitImg} alt="Lead technician portrait" className="pdi-real-img" style={{ aspectRatio: "4/5" }} />
         </div>
       </section>
 
@@ -331,7 +359,12 @@ function AboutPage({ onNavigate }) {
         <div className="pdi-shell">
           <Eyebrow>How it works</Eyebrow>
           <h2 className="pdi-h2">From booking to decision, in four steps</h2>
-          <ImagePlaceholder caption="Photo: technician handing over a printed/tablet report to a customer" ratio="21/6" className="pdi-process-banner" />
+          <img
+            src={handoverImg}
+            alt="Technician handing over an inspection report to a customer"
+            className="pdi-real-img pdi-process-banner"
+            style={{ aspectRatio: "21/6" }}
+          />
           <div className="pdi-process-grid">
             {PROCESS_STEPS.map((s) => (
               <div className="pdi-process-item" key={s.n}>
@@ -368,7 +401,7 @@ function ServicesPage({ onNavigate }) {
         <div className="pdi-shell pdi-service-grid-full">
           {SERVICES.map((s) => (
             <div className="pdi-service pdi-service-full" key={s.code}>
-              <ImagePlaceholder caption={`Photo: ${s.name.toLowerCase()}`} ratio="16/9" className="pdi-service-img" />
+              <img src={s.img} alt={s.name} className="pdi-real-img pdi-service-img" style={{ aspectRatio: "16/9" }} />
               <div className="pdi-service-code">{s.code}</div>
               <h3>{s.name}</h3>
               <p>{s.desc}</p>
@@ -713,6 +746,9 @@ const CSS = `
 }
 .pdi-img-placeholder svg { opacity: 0.6; }
 .pdi-img-placeholder span { max-width: 30ch; }
+
+.pdi-real-img { width: 100%; height: 100%; object-fit: cover; border-radius: 6px; display: block; }
+.pdi-avatar-img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
 
 .pdi-quote-meta-row { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
 .pdi-quote-meta-row > div:last-child > span:first-child { font-weight: 700; }
