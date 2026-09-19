@@ -1,18 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 
-import bannerYard from "./images/banner-yard.png";
-import diagnosticCloseup from "./images/diagnostic-closeup.png";
-import handoverImg from "./images/handover.png";
-import portraitImg from "./images/portrait.png";
 import serviceEngine from "./images/service-engine.png";
 import serviceMechanical from "./images/service-mechanical.png";
 import serviceElectronics from "./images/service-electronics.png";
-import serviceBattery from "./images/service-battery.png";
-import servicePaint from "./images/service-paint.png";
-import serviceInterior from "./images/service-interior.png";
-import avatarKM from "./images/avatar-km.png";
-import avatarPN from "./images/avatar-pn.png";
-import avatarSB from "./images/avatar-sb.png";
 
 /* ------------------------------------------------------------------ */
 /* Data                                                                 */
