@@ -3,11 +3,12 @@ import React, { useState, useEffect, useRef } from "react";
 import serviceEngine from "./images/service-engine.png";
 import serviceMechanical from "./images/service-mechanical.png";
 import serviceElectronics from "./images/service-electronics.png";
-import servicepaint from "./images/service-paint.png"
-import servicebattery from "./images/service-battery.png"
-import serviceinterior from "./images/service-interior.png"
+import servicepaint from "./images/service-paint.png";
+import servicebattery from "./images/service-battery.png";
+import serviceinterior from "./images/service-interior.png";
 import bannerYard from "./images/banner-yard.png";
 import diagnosticCloseup from "./images/diagnostic-closeup.png";
+import servicereport from  "./images/service-report.png";
 
 /* ------------------------------------------------------------------ */
 /* Data                                                                 */
@@ -329,7 +330,7 @@ function AboutPage({ onNavigate }) {
       <section className="pdi-page-hero">
         <div className="pdi-shell pdi-about-hero-grid">
           <div>
-            <Eyebrow>About Checkpoint</Eyebrow>
+            <Eyebrow>About PDICARVISI👁️N</Eyebrow>
             <h1 className="pdi-h1" style={{ fontSize: 38 }}>
               Fifteen years in automotive diagnostics, now working for the buyer
             </h1>
@@ -358,7 +359,7 @@ function AboutPage({ onNavigate }) {
         <div className="pdi-shell">
           <Eyebrow>How it works</Eyebrow>
           <h2 className="pdi-h2">From booking to decision, in four steps</h2>
-          <ImagePlaceholder caption="Photo: technician handing over a printed/tablet report to a customer" ratio="21/6" className="pdi-process-banner" />
+          <ImageBox src={servicereport} alt="Photo: technician handing over a printed/tablet report to a customer" ratio="45/55" className="pdi-process-banner" style={{ objectPosition: "center 30%" }}  />
           <div className="pdi-process-grid">
             {PROCESS_STEPS.map((s) => (
               <div className="pdi-process-item" key={s.n}>
@@ -572,7 +573,7 @@ export default function CarPDISite() {
         <div className="pdi-shell pdi-header-row">
           <button className="pdi-logo pdi-logo-btn" onClick={() => navigate("home")}>
             <span className="pdi-logo-mark">◈</span>
-            <span>CHECKPOINT<span className="pdi-amber">.</span></span>
+            <span>PDICARVISI👁️N<span className="pdi-amber">.</span></span>
           </button>
 
           <nav className={`pdi-nav ${navOpen ? "is-open" : ""}`}>
@@ -603,7 +604,7 @@ export default function CarPDISite() {
       <footer className="pdi-footer">
         <div className="pdi-shell pdi-footer-grid">
           <div>
-            <div className="pdi-logo"><span className="pdi-logo-mark">◈</span><span>PDICARVISION<span className="pdi-amber">.</span></span></div>
+            <div className="pdi-logo"><span className="pdi-logo-mark">◈</span><span>PDICARVISI👁️N<span className="pdi-amber">.</span></span></div>
             <p className="pdi-muted">Independent pre-delivery inspection for new car buyers.</p>
           </div>
           <div>
@@ -612,10 +613,10 @@ export default function CarPDISite() {
           </div>
           <div>
             <h4>Contact</h4>
-            <p className="pdi-muted">+91 98-XXXX-XXXX<br />hello@checkpointpdi.in</p>
+            <p className="pdi-muted">+91 98-XXXX-XXXX<br />hello@pdicarvision.in</p>
           </div>
         </div>
-        <div className="pdi-shell pdi-footer-bottom">© 2026 Checkpoint. All rights reserved.</div>
+        <div className="pdi-shell pdi-footer-bottom">© 2026 PDICARVISI👁️N. All rights reserved.</div>
       </footer>
 
       <WhatsAppButton />
