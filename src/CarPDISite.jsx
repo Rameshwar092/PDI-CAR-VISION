@@ -102,7 +102,7 @@ const BRANDS = [
   "Kia", "Skoda", "Volkswagen", "MG", "Renault", "Nissan",
 ];
 
-const WHATSAPP_NUMBER = "918800769789"; // placeholder — replace with client's number
+const WHATSAPP_NUMBER = "918274007600"; // placeholder — replace with client's number
 
 /* ------------------------------------------------------------------ */
 /* Small shared bits                                                    */
@@ -602,14 +602,14 @@ const CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Inter:wght@400;500;600&display=swap');
 
 .pdi {
-  --ink: #12161B;
-  --panel: #1B2129;
-  --panel-2: #202832;
-  --line: #2B3742;
-  --steel: #35566B;
-  --amber: #F2A900;
-  --paper: #ECEDE7;
-  --muted: #8992A0;
+  --ink: #F3F6FA;
+  --panel: #FFFFFF;
+  --panel-2: #EAF0F8;
+  --line: #E1E7EF;
+  --steel: #4C6C93;
+  --amber: #2563EB;
+  --paper: #101828;
+  --muted: #64748B;
   font-family: 'Inter', sans-serif;
   background: var(--ink);
   color: var(--paper);
@@ -623,10 +623,10 @@ const CSS = `
 .pdi-amber { color: var(--amber); }
 .pdi-muted { color: var(--muted); }
 
-.pdi-ticker { background: var(--amber); color: var(--ink); font-weight: 600; font-size: 13px; padding: 7px 0; overflow: hidden; white-space: nowrap; }
+.pdi-ticker { background: var(--amber); color: #fff; font-weight: 600; font-size: 13px; padding: 7px 0; overflow: hidden; white-space: nowrap; }
 .pdi-ticker-track { text-align: center; padding: 0 16px; }
 
-.pdi-header { position: sticky; top: 0; z-index: 30; background: rgba(18,22,27,0.92); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+.pdi-header { position: sticky; top: 0; z-index: 30; background: rgba(255,255,255,0.88); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
 .pdi-header-row { display: flex; align-items: center; justify-content: space-between; height: 68px; }
 .pdi-logo { display: flex; align-items: center; gap: 8px; font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 19px; letter-spacing: 0.01em; }
 .pdi-logo-btn { background: none; border: none; cursor: pointer; color: inherit; padding: 0; }
@@ -640,8 +640,8 @@ const CSS = `
 .pdi-nav-toggle span { width: 20px; height: 2px; background: var(--paper); display: block; }
 
 .pdi-btn { display: inline-block; padding: 9px 18px; border-radius: 3px; font-size: 14px; font-weight: 600; font-family: 'Inter', sans-serif; border: 1px solid transparent; cursor: pointer; transition: all .15s; }
-.pdi-btn-amber { background: var(--amber); color: var(--ink); }
-.pdi-btn-amber:hover { background: #ffb914; }
+.pdi-btn-amber { background: var(--amber); color: #fff; }
+.pdi-btn-amber:hover { background: #1d4ed8; }
 .pdi-btn-outline { border-color: var(--line); color: var(--paper); background: none; }
 .pdi-btn-outline:hover { border-color: var(--steel); }
 .pdi-btn-lg { padding: 13px 26px; font-size: 15px; }
@@ -659,7 +659,7 @@ const CSS = `
 
 .pdi-scan-panel { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 26px; }
 .pdi-scan-head { display: flex; align-items: center; gap: 8px; font-size: 12px; letter-spacing: 0.1em; color: var(--muted); font-weight: 600; margin-bottom: 18px; }
-.pdi-scan-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--amber); box-shadow: 0 0 0 3px rgba(242,169,0,0.2); }
+.pdi-scan-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--amber); box-shadow: 0 0 0 3px rgba(37,99,235,0.18); }
 .pdi-scan-big { font-family: 'Archivo', sans-serif; font-size: 46px; font-weight: 800; color: var(--paper); }
 .pdi-scan-label { color: var(--muted); font-size: 13px; margin-bottom: 22px; }
 .pdi-scan-rows { border-top: 1px solid var(--line); padding-top: 16px; display: flex; flex-direction: column; gap: 12px; }
@@ -706,8 +706,8 @@ const CSS = `
 .pdi-process-banner { margin-bottom: 40px; }
 
 .pdi-img-placeholder {
-  width: 100%; border-radius: 6px; background: var(--panel);
-  border: 1px dashed var(--line); color: var(--muted);
+  width: 100%; border-radius: 6px; background: var(--panel-2);
+  border: 1.5px dashed #B9C7DA; color: var(--muted);
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: 10px; text-align: center; padding: 16px; font-size: 12.5px; line-height: 1.4;
 }
