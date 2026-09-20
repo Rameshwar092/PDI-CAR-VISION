@@ -281,7 +281,6 @@ function HomePage({ onNavigate }) {
                   ? <ImageBox src={s.img} alt={s.name} ratio="16/10" className="pdi-service-img" />
                   : <ImagePlaceholder caption={`Photo: ${s.name.toLowerCase()}`} ratio="16/10" className="pdi-service-img" />
                 }
-                <div className="pdi-service-code">{s.code}</div>
                 <h3>{s.name}</h3>
                 <p>{s.desc}</p>
               </div>
@@ -400,7 +399,6 @@ function ServicesPage({ onNavigate }) {
                 ? <ImageBox src={s.img} alt={s.name} ratio="16/9" className="pdi-service-img" />
                 : <ImagePlaceholder caption={`Photo: ${s.name.toLowerCase()}`} ratio="16/9" className="pdi-service-img" />
               }
-              <div className="pdi-service-code">{s.code}</div>
               <h3>{s.name}</h3>
               <p>{s.desc}</p>
               <ul className="pdi-service-points">
@@ -419,11 +417,38 @@ function ServicesPage({ onNavigate }) {
 function ContactPage() {
   const [form, setForm] = useState({ name: "", phone: "", city: "", car: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
+  const API_BASE_URL = "http://localhost:5000";
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.name || !form.phone) return;
-    setSubmitted(true);
+
+    setSubmitting(true);
+    setError("");
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/bookings`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        const message =
+          data.errors?.[0]?.msg || data.message || "Something went wrong. Please try again.";
+        throw new Error(message);
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      setError(err.message || "Could not submit — please check your connection and try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -463,7 +488,10 @@ function ContactPage() {
               <label>Car model
                 <input type="text" value={form.car} onChange={(e) => setForm({ ...form, car: e.target.value })} placeholder="e.g. New Creta, top variant" />
               </label>
-              <button type="submit" className="pdi-btn pdi-btn-amber pdi-btn-lg pdi-btn-block">Request inspection</button>
+              {error && <p className="pdi-form-error">{error}</p>}
+              <button type="submit" className="pdi-btn pdi-btn-amber pdi-btn-lg pdi-btn-block" disabled={submitting}>
+                {submitting ? "Submitting…" : "Request inspection"}
+              </button>
             </>
           )}
         </form>
@@ -781,6 +809,8 @@ const CSS = `
 .pdi-form-success { padding: 20px 4px; }
 .pdi-form-success strong { color: var(--amber); font-size: 16px; }
 .pdi-form-success p { color: var(--muted); margin-top: 8px; }
+.pdi-form-error { color: #DC2626; font-size: 13.5px; margin: -4px 0 0; }
+.pdi-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
 .pdi-footer { padding: 56px 0 0; }
 .pdi-footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; padding-bottom: 40px; }
