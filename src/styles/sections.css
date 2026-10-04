@@ -1,0 +1,53 @@
+/* Contact section and extra Services content */
+
+/* ---------- Contact ---------- */
+.cx{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:start}
+.cx-list{display:grid;gap:30px;margin:34px 0 34px}
+.cx-item{display:grid;grid-template-columns:64px 1fr;gap:20px;align-items:center}
+.cx-item i{width:64px;height:64px;border-radius:50%;background:#fff;color:var(--blue);display:grid;place-items:center;box-shadow:0 12px 28px -14px #1d5fe066}
+.cx-item b{display:block;font-family:Sora,'Arial Black',sans-serif;font-size:20px;text-transform:uppercase;color:var(--ink)}
+.cx-item span,.cx-item a{color:var(--mute);overflow-wrap:anywhere}
+.cx-item a:hover{color:var(--blue)}
+.cx-form form{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:30px}
+.cx-form .full{grid-column:1/-1}
+.cx-form input,.cx-form textarea{width:100%;border:0;background:#fff;color:var(--ink);font:inherit;padding:20px 26px;border-radius:99px;box-shadow:0 14px 34px -22px #1d3a7a88}
+.cx-form textarea{border-radius:28px;min-height:170px;resize:vertical}
+.cx-form ::placeholder{color:#7d8ba0}
+.cx-form input:focus,.cx-form textarea:focus{outline:3px solid var(--gold)}
+.cx-send{justify-self:start;gap:22px;padding:18px 38px;border-radius:99px;font-size:16px;text-transform:uppercase;letter-spacing:.04em}
+.cx-note{grid-column:1/-1;color:var(--mute);font-size:15px}
+
+/* ---------- Services: details, steps, FAQ, call to action ---------- */
+.sx{margin-top:90px}
+.sx-blk{margin-top:96px}.sx-blk:first-child{margin-top:0}
+.sx-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.sx-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px;box-shadow:0 18px 40px -30px #1d3a7a66;transition:transform .25s,border-color .25s}
+.sx-card:hover{transform:translateY(-6px);border-color:var(--blue)}
+.sx-card i{width:56px;height:56px;border-radius:16px;background:#eef3fb;color:var(--blue);display:grid;place-items:center;margin-bottom:16px}
+.sx-card h3{font-size:19px;margin-bottom:8px}
+.sx-card p{color:var(--mute);font-size:15px;margin-bottom:14px}
+.sx-card ul{list-style:none;padding:0;display:grid;gap:8px;font-size:14.5px}
+.sx-card li{display:flex;gap:10px}
+.sx-card li:before{content:"✓";color:var(--blue);font-weight:700}
+.sx-steps{list-style:none;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.sx-steps li{padding:26px;background:#fff;border:1px solid var(--line);border-radius:20px}
+.sx-steps span{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--blue);color:#fff;font:800 18px Sora,sans-serif;margin-bottom:14px}
+.sx-steps h3{font-size:19px;margin-bottom:6px}
+.sx-steps p{color:var(--mute);font-size:15px}
+.sx-faq{max-width:860px;display:grid;gap:12px}
+.sx-q{background:#fff;border:1px solid var(--line);border-radius:16px}
+.sx-q button{all:unset;box-sizing:border-box;width:100%;display:flex;justify-content:space-between;gap:16px;padding:20px 24px;cursor:pointer;font-weight:700;color:var(--ink)}
+.sx-q button:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:16px}
+.sx-q span{color:var(--blue);font-size:24px;line-height:1;transition:transform .2s}
+.sx-q.open span{transform:rotate(45deg)}
+.sx-q p{padding:0 24px 22px;color:var(--mute)}
+.sx-cta{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;margin-top:96px;padding:40px;border-radius:24px;background:linear-gradient(135deg,#2f343a,#4b5057);color:#fff}
+.sx-cta h3{font-size:clamp(24px,3vw,34px);margin-bottom:6px}
+.sx-cta p{color:#d6dde6;max-width:46ch}
+.sx-cta>div:last-child{display:flex;gap:12px;flex-wrap:wrap}
+.sx-cta .ghost{background:transparent;border:2px solid #8fd3ff;color:#fff}
+.sx-cta .ghost:hover{background:#ffffff1f}
+
+@media(max-width:1100px){.sx-grid,.sx-steps{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:940px){.cx{grid-template-columns:1fr;gap:44px}}
+@media(max-width:620px){.sx-grid,.sx-steps,.cx-form form{grid-template-columns:1fr}.sx-cta{padding:28px}}
