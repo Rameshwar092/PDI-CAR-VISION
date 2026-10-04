@@ -243,3 +243,27 @@ footer{--bg:#080f1c;--panel:#0d1830;--line:#1d2b47;--ink:#eaf0f8;--mute:#8d9cb3;
 @media(max-width:940px){.sd{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}}
 @media(max-width:520px){.f2,.steps{grid-template-columns:1fr}}
 .contact h2{font-size:clamp(28px,3.3vw,42px);margin-bottom:6px}
+
+/* ===== Transparent nav over the hero, big logo ===== */
+.nav{margin-bottom:-97px;background:transparent;border-bottom-color:transparent;transition:background .3s,border-color .3s}
+.nav:before{opacity:0;transition:opacity .3s}
+.nav.scrolled{background:linear-gradient(160deg,#4b5057,#2a2e33);border-bottom-color:#ffffff1f}
+.nav.scrolled:before{opacity:.6}
+.nav .wrap{height:96px}
+.nav img{height:64px;padding:6px 16px}
+.hx{padding-top:97px;min-height:calc(100svh - 39px)}
+@media(max-width:940px){
+  .nav{margin-bottom:-81px}
+  .nav .wrap{height:80px}
+  .nav img{height:50px;padding:5px 12px}
+  .hx{padding-top:81px}
+}
+
+/* Remove white box behind PDI CarVision logo */
+.nav img {
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  mix-blend-mode: normal !important;
+}
