@@ -2,7 +2,7 @@ import logo from '../assets/logo.png';
 import { BRANDS, CITIES, CONTACT, WHATSAPP_URL } from '../data.js';
 import { Chat, Facebook, Youtube, Instagram, Call, Mail, Hours, Pin, ArrowUp, Whatsapp } from './Icons.jsx';
 
-const SOCIAL = [['Facebook', Facebook], ['YouTube', Youtube], ['Instagram', Instagram]];
+const SOCIAL = [ ['Instagram', Instagram]];
 const LEGAL = [['Home', '#home'], ['About', '#about'], ['Services', '#services'], ['Contact', '#contact'], ['Privacy Policy', '#'], ['Terms & Conditions', '#']];
 const INFO = [
   [Call, CONTACT.phone, CONTACT.phoneHref],

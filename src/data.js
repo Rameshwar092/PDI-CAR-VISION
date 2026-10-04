@@ -5,18 +5,18 @@ export const FORM_CITIES = ['Delhi', 'Gurgaon', 'Noida', 'Faridabad', 'Ghaziabad
 export const BRANDS = ['Maruti Suzuki', 'Hyundai', 'Tata Motors', 'Mahindra', 'Kia', 'Honda', 'Toyota', 'Skoda', 'Volkswagen', 'MG Motor', 'Renault', 'Nissan', 'Citroen', 'Jeep', 'BYD', 'Isuzu', 'BMW', 'Audi', 'Mercedes-Benz', 'Force Motors'];
 
 // WhatsApp: country code 91 + number, digits only. The button opens a chat with this message ready to send.
-export const WHATSAPP_NUMBER = '919696127630';
+export const WHATSAPP_NUMBER = '918448716150';
 export const whatsappLink = (text) => `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
-export const WHATSAPP_URL = whatsappLink('Hi PDI CarVision, I want to book a PDI for my new car.');
+export const WHATSAPP_URL = whatsappLink('Hi PDI CarVision, I want to book a PDI for my car.');
 
 // TODO before launch: replace the placeholder email and address
-export const CONTACT = { phone: '+91 96961 27630', phoneHref: 'tel:+919696127630', email: 'hello@pdicarvision.in', address: 'Your office address line 1, Area, City, State – PIN' };
+export const CONTACT = { phone: '+91 8448716150', phoneHref: 'tel:+918448716150', email: 'pdi.carvision@outlook.com', address: 'Your office address line 1, Area, City, State – PIN' };
 
 export const NAV = [['home', 'Home'], ['about', 'About'], ['services', 'Services'], ['contact', 'Contact']];
 
 export const HIGHLIGHTS = [
   { icon: Audit, title: 'PDI digital audits', text: 'Accurate, instant inspections with zero errors.' },
-  { icon: Eye, title: 'AI-powered damage detection', text: 'Spot defects, scratches and damage with computer vision.' },
+  { icon: Eye, title: ' Damage detection', text: 'Spot defects, scratches and damage with computer vision.' },
   { icon: Chart, title: 'Advanced analytics portal', text: 'Get real-time insights for inventory and operations.' },
 ];
 export const WHY = [

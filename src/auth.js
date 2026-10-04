@@ -1,28 +1,3 @@
-// // OTP calls go to YOUR backend. Put VITE_API_URL=https://api.yourdomain.com in a .env file.
-// const API = import.meta.env.VITE_API_URL;
-
-// async function post(path, body) {
-//   if (!API) throw new Error('OTP service is not connected yet.');
-//   const res = await fetch(`${API}${path}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
-//   const data = await res.json().catch(() => ({}));
-//   if (!res.ok) throw new Error(data.message || 'Something went wrong. Please try again.');
-//   return data;
-// }
-
-// export async function sendOtp(mobile) {
-//   if (import.meta.env.DEV && !API) return;                       // dev-only mock: no SMS is sent
-//   await post('/api/otp/send', { mobile: '+91' + mobile });
-// }
-
-// export async function verifyOtp(mobile, otp) {
-//   if (import.meta.env.DEV && !API) {                              // dev-only mock: OTP is always 123456
-//     if (otp === '123456') return { token: 'dev' };
-//     throw new Error('Wrong OTP. In development use 123456.');
-//   }
-//   return post('/api/otp/verify', { mobile: '+91' + mobile, otp });
-// }
-
-
 
 const API_URL = import.meta.env.VITE_API_URL;
 

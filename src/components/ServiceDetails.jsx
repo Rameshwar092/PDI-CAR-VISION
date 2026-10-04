@@ -23,7 +23,7 @@ export default function ServiceDetails() {
       <Reveal className="faq">
         {FAQ.map(({ q, a }) => <details key={q}><summary>{q}</summary><p>{a}</p></details>)}
       </Reveal>
-      <Reveal className="cta"><a className="btn" href="#contact">Book my PDI</a></Reveal>
+      <Reveal className="cta"><a className="btn" href="#contact">Book my car PDI</a></Reveal>
     </div>
   );
 }

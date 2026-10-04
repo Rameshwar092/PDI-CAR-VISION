@@ -18,7 +18,7 @@ export default function Hero() {
   return (
     <section className="hx" id="home"><div className="wrap">
       <div>
-        <h1>The gold standard in <em>AI-powered</em> vehicle inspection &amp; intelligence.</h1>
+        <h1>The gold standard in vehicle inspection &amp; intelligence.</h1>
         <p>Empowering trust and performance with next-generation digital PDI and auditing.</p>
         <div className="row">
           <a className="btn b2" href="#scan">Explore CarVision</a>
