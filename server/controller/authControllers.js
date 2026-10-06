@@ -1,17 +1,6 @@
-
 import jwt from 'jsonwebtoken';
 import User from '../models/user.js';
-import {
-  sendOtp as sendOtpSms,
-  verifyOtp as verifyOtpSms
-} from '../services/msg91.js';
-
-
-const MOBILE_RE = /^[6-9]\d{9}$/;
-
-function normalizeMobile(mobile) {
-  return mobile.replace(/\D/g, '');
-}
+import admin from '../config/firebaseAdmin.js';
 
 
 function createToken(user) {
@@ -28,102 +17,68 @@ function createToken(user) {
 }
 
 
-export async function sendOtp(req, res) {
+export async function firebaseLogin(req, res) {
   try {
-    let { mobile } = req.body;
+    const authHeader = req.headers.authorization;
 
-    if (!mobile) {
-      return res.status(400).json({
-        success: false,
-        message: 'Mobile number is required'
-      });
-    }
-
-    mobile = normalizeMobile(mobile);
-
-    if (!MOBILE_RE.test(mobile)) {
-      return res.status(400).json({
-        success: false,
-        message: 'Enter a valid Indian mobile number'
-      });
-    }
-
-    const internationalMobile = `91${mobile}`;
-
-    const result = await sendOtpSms(internationalMobile);
-
-    return res.status(200).json({
-      success: true,
-      message: 'OTP sent successfully',
-      data: {
-        mobile
-      }
-    });
-
-  } catch (error) {
-    console.error('sendOtp:', error);
-
-    return res.status(500).json({
-      success: false,
-      message: error.message || 'Failed to send OTP'
-    });
-  }
-}
-
-
-export async function verifyOtp(req, res) {
-  try {
-    let { mobile, otp } = req.body;
-
-    if (!mobile || !otp) {
-      return res.status(400).json({
-        success: false,
-        message: 'Mobile number and OTP are required'
-      });
-    }
-
-    mobile = normalizeMobile(mobile);
-
-    if (!MOBILE_RE.test(mobile)) {
-      return res.status(400).json({
-        success: false,
-        message: 'Invalid mobile number'
-      });
-    }
-
-    if (!/^\d{6}$/.test(otp)) {
-      return res.status(400).json({
-        success: false,
-        message: 'OTP must be 6 digits'
-      });
-    }
-
-    const internationalMobile = `91${mobile}`;
-
-    const verification = await verifyOtpSms(
-      internationalMobile,
-      otp
-    );
-
-    const verificationMessage =
-      verification?.message?.toLowerCase?.() || '';
-
-    const verified =
-      verification?.type === 'success' ||
-      verificationMessage.includes('verified') ||
-      verificationMessage.includes('success');
-
-    if (!verified) {
+    if (!authHeader) {
       return res.status(401).json({
         success: false,
-        message: 'Invalid or expired OTP'
+        message: 'Authorization token is required'
       });
     }
 
+    if (!authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({
+        success: false,
+        message: 'Invalid authorization format'
+      });
+    }
+
+    const firebaseToken = authHeader.substring(7);
+
+    if (!firebaseToken) {
+      return res.status(401).json({
+        success: false,
+        message: 'Firebase token is missing'
+      });
+    }
+
+
+    // Verify the token with Firebase Admin
+    const decodedToken =
+      await admin.auth().verifyIdToken(firebaseToken);
+
+
+    const firebasePhone =
+      decodedToken.phone_number;
+
+
+    if (!firebasePhone) {
+      return res.status(401).json({
+        success: false,
+        message: 'Verified phone number not found'
+      });
+    }
+
+
+    // Firebase gives something like:
+    // +919876543210
+    //
+    // Store only:
+    // 9876543210
+
+    const mobile =
+      firebasePhone.replace(/\D/g, '').slice(-10);
+
+
+    // Find existing customer
     let user = await User.findOne({
       mobile
     });
 
+
+    // Create customer on first login
     if (!user) {
       user = await User.create({
         mobile,
@@ -131,13 +86,17 @@ export async function verifyOtp(req, res) {
         lastLogin: new Date()
       });
     } else {
+
       user.mobileVerified = true;
       user.lastLogin = new Date();
 
       await user.save();
     }
 
+
+    // Create your existing application JWT
     const token = createToken(user);
+
 
     return res.status(200).json({
       success: true,
@@ -155,11 +114,12 @@ export async function verifyOtp(req, res) {
     });
 
   } catch (error) {
-    console.error('verifyOtp:', error);
+
+    console.error('firebaseLogin:', error);
 
     return res.status(401).json({
       success: false,
-      message: error.message || 'OTP verification failed'
+      message: 'Firebase authentication failed'
     });
   }
 }

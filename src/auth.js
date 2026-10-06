@@ -1,4 +1,3 @@
-
 const API_URL = import.meta.env.VITE_API_URL;
 
 
@@ -27,33 +26,17 @@ async function request(endpoint, options = {}) {
 }
 
 
-export async function sendOtp(mobile) {
-  return request(
-    '/api/auth/send-otp',
-    {
-      method: 'POST',
-
-      body: JSON.stringify({
-        mobile
-      })
-    }
-  );
-}
-
-
-export async function verifyOtp(mobile, otp) {
+export async function loginWithFirebase(firebaseToken) {
   const result = await request(
-    '/api/auth/verify-otp',
+    '/api/auth/firebase-login',
     {
       method: 'POST',
 
-      body: JSON.stringify({
-        mobile,
-        otp
-      })
+      headers: {
+        Authorization: `Bearer ${firebaseToken}`
+      }
     }
   );
-
 
   if (result?.data?.token) {
     localStorage.setItem(
@@ -62,14 +45,12 @@ export async function verifyOtp(mobile, otp) {
     );
   }
 
-
   if (result?.data?.user) {
     localStorage.setItem(
       'pdi_user',
       JSON.stringify(result.data.user)
     );
   }
-
 
   return result;
 }

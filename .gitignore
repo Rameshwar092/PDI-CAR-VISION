@@ -22,3 +22,8 @@ build/
 .DS_Store
 .vercel
 .env*
+.env
+.env.*
+firebase-service-account.json
+**/firebase-service-account.json
+*pdi-car-vision-firebase-adminsdk*.json
