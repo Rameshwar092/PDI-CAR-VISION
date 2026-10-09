@@ -2,13 +2,23 @@ import { useEffect, useRef, useState } from 'react';
 
 import {
   RecaptchaVerifier,
-  signInWithPhoneNumber
+  signInWithPhoneNumber,
+  signOut
 } from 'firebase/auth';
 
 import { auth } from '../firebase.js';
 import { loginWithFirebase } from '../auth.js';
+import {
+  pdiConfigured,
+  getPdiSession,
+  clearPdiSession,
+  startPdiSession,
+  listMyReports,
+  reportLink
+} from '../pdiReports.js';
 
 const MOBILE_RE = /^[6-9]\d{9}$/;
+const TONE = { PASS: 'ok', 'PASS WITH OBSERVATIONS': 'warn', FAIL: 'bad' };
 
 export default function LoginModal({ open, onClose }) {
   const [step, setStep] = useState('mobile');
@@ -17,6 +27,7 @@ export default function LoginModal({ open, onClose }) {
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const [wait, setWait] = useState(0);
+  const [reports, setReports] = useState(null);
 
   const inputRef = useRef(null);
   const confirmationResult = useRef(null);
@@ -25,16 +36,20 @@ export default function LoginModal({ open, onClose }) {
   useEffect(() => {
     if (!open) return;
 
-    setStep('mobile');
+    // Already verified in this browser tab? Go straight to the reports.
+    setStep(getPdiSession() ? 'reports' : 'mobile');
     setMobile('');
     setOtp('');
     setError('');
     setWait(0);
 
     document.body.style.overflow = 'hidden';
+    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', onKey);
 
     return () => {
       document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKey);
 
       if (recaptchaVerifier.current) {
         try {
@@ -66,6 +81,21 @@ export default function LoginModal({ open, onClose }) {
     return () => clearTimeout(timer);
   }, [wait]);
 
+  // Load the customer's reports once they are verified
+  useEffect(() => {
+    if (!open || step !== 'reports') return;
+    let alive = true;
+    setReports(null);
+    setError('');
+    listMyReports()
+      .then((list) => alive && setReports(list))
+      .catch((e) => {
+        if (!alive) return;
+        if (e.status === 401) { setStep('mobile'); setError(e.message); } else setError(e.message);
+      });
+    return () => { alive = false; };
+  }, [open, step]);
+
   const getErrorMessage = (error) => {
     console.error('Firebase OTP error:', error);
 
@@ -73,23 +103,29 @@ export default function LoginModal({ open, onClose }) {
       case 'auth/invalid-phone-number':
         return 'Please enter a valid Indian mobile number.';
 
+      case 'auth/invalid-verification-code':
+        return 'Incorrect OTP. Please check the code and try again.';
+
+      case 'auth/code-expired':
+        return 'This OTP has expired. Please request a new one.';
+
       case 'auth/too-many-requests':
         return 'Too many attempts. Please wait and try again later.';
 
       case 'auth/quota-exceeded':
-        return 'Firebase SMS quota has been exceeded.';
+        return 'SMS limit reached for today. Please try again later.';
 
       case 'auth/captcha-check-failed':
         return 'reCAPTCHA verification failed. Please refresh and try again.';
 
       case 'auth/invalid-app-credential':
-        return 'Firebase reCAPTCHA verification failed. Please refresh the page.';
+        return 'Verification failed. Please refresh the page and try again.';
 
       case 'auth/app-not-authorized':
-        return 'This website is not authorized in Firebase. Add localhost to Authorized Domains.';
+        return 'This website is not authorized for phone login yet. Please try again later.';
 
       case 'auth/operation-not-allowed':
-        return 'Phone Authentication is not enabled in Firebase Console.';
+        return 'Phone login is not enabled yet. Please try again later.';
 
       case 'auth/network-request-failed':
         return 'Network error. Please check your internet connection.';
@@ -112,9 +148,6 @@ export default function LoginModal({ open, onClose }) {
       'recaptcha-container',
       {
         size: 'invisible',
-        callback: () => {
-          console.log('reCAPTCHA verified');
-        },
         'expired-callback': () => {
           setError('reCAPTCHA expired. Please try again.');
         }
@@ -138,8 +171,6 @@ export default function LoginModal({ open, onClose }) {
     try {
       const appVerifier = setupRecaptcha();
 
-      console.log('Sending OTP to:', `+91${mobile}`);
-
       const result = await signInWithPhoneNumber(
         auth,
         `+91${mobile}`,
@@ -147,8 +178,6 @@ export default function LoginModal({ open, onClose }) {
       );
 
       confirmationResult.current = result;
-
-      console.log('OTP sent successfully');
 
       setStep('otp');
       setOtp('');
@@ -188,26 +217,23 @@ export default function LoginModal({ open, onClose }) {
     setError('');
 
     try {
-      console.log('Verifying OTP...');
-
       const result = await confirmationResult.current.confirm(otp);
+      const firebaseToken = await result.user.getIdToken();
 
-      const firebaseUser = result.user;
-
-      console.log(
-        'Firebase user:',
-        firebaseUser.phoneNumber
+      // Website's own customer account (optional: never blocks the report)
+      loginWithFirebase(firebaseToken).catch((err) =>
+        console.warn('Website login skipped:', err.message)
       );
 
-      const firebaseToken = await firebaseUser.getIdToken();
+      // PDI report access
+      await startPdiSession(firebaseToken);
 
-      await loginWithFirebase(firebaseToken);
+      // We only needed Firebase to prove the phone number; don't keep it signed in.
+      signOut(auth).catch(() => {});
 
-      console.log('Backend login successful');
-
-      setStep('done');
+      setStep('reports');
     } catch (error) {
-      setError(getErrorMessage(error));
+      setError(error?.code ? getErrorMessage(error) : error.message);
     } finally {
       setBusy(false);
     }
@@ -217,6 +243,13 @@ export default function LoginModal({ open, onClose }) {
     if (wait > 0 || busy) return;
 
     await sendOtp();
+  };
+
+  const useOtherNumber = () => {
+    clearPdiSession();
+    setReports(null);
+    setError('');
+    setStep('mobile');
   };
 
   if (!open) {
@@ -233,7 +266,7 @@ export default function LoginModal({ open, onClose }) {
       }}
     >
       <div
-        className="modal-card"
+        className={'modal-card' + (step === 'reports' ? ' wide' : '')}
         role="dialog"
         aria-modal="true"
         aria-labelledby="login-title"
@@ -254,12 +287,18 @@ export default function LoginModal({ open, onClose }) {
             sendOtp();
           }}>
             <h2 id="login-title">
-              Log in to get your PDI report
+              Get your PDI report
             </h2>
 
             <p className="login-subtitle">
-              Enter your mobile number to receive a secure OTP.
+              Enter the mobile number you gave at the time of your car's inspection. We'll send you a secure OTP.
             </p>
+
+            {!pdiConfigured() && (
+              <div className="err" role="alert">
+                Report access is not configured yet (VITE_PDI_API_URL / VITE_PDI_APP_URL).
+              </div>
+            )}
 
             <label htmlFor="mob">
               Mobile number
@@ -364,7 +403,7 @@ export default function LoginModal({ open, onClose }) {
             >
               {busy
                 ? 'Verifying...'
-                : 'Verify and continue'}
+                : 'Verify & see my report'}
             </button>
 
             <button
@@ -380,22 +419,51 @@ export default function LoginModal({ open, onClose }) {
           </form>
         )}
 
-        {step === 'done' && (
-          <div className="login-success">
-            <h2>
-              You are logged in
+        {step === 'reports' && (
+          <div className="reports">
+            <h2 id="login-title">
+              Your PDI reports
             </h2>
 
-            <p>
-              +91 {mobile} has been verified successfully.
+            <p className="login-subtitle">
+              Verified: <strong>+91 {getPdiSession()?.mobile || ''}</strong>
             </p>
 
-            <button
-              className="btn full"
-              onClick={onClose}
-              type="button"
-            >
-              Continue
+            {error && (
+              <div className="err" role="alert">
+                {error}
+              </div>
+            )}
+
+            {!reports && !error && (
+              <p className="login-subtitle">Loading your reports...</p>
+            )}
+
+            {reports && reports.length === 0 && (
+              <p className="empty">
+                No PDI report is linked to this number yet. If your inspection was done recently,
+                please check again later or chat with us on WhatsApp.
+              </p>
+            )}
+
+            {reports && reports.length > 0 && (
+              <ul className="rlist">
+                {reports.map((r) => (
+                  <li key={r.id}>
+                    <div className="rinfo">
+                      <b>{r.vehicle}</b>
+                      <span>Report {r.id} · {r.date}</span>
+                      {r.vin && r.vin !== '-' && <span>VIN {r.vin}</span>}
+                    </div>
+                    <span className={'rres ' + (TONE[r.result] || '')}>{r.result}</span>
+                    <a className="btn" href={reportLink(r.id)}>View &amp; download</a>
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            <button type="button" className="link" onClick={useOtherNumber}>
+              Use a different mobile number
             </button>
           </div>
         )}

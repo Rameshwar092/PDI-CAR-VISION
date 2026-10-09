@@ -41,7 +41,7 @@ export function Banner() {
 // }
 
 
-export function Navbar() {
+export function Navbar({ onGetReport }) {
   const [open, setOpen] = useState(false);
   const active = useActiveSection(IDS);
   const [scrolled, setScrolled] = useState(false);
@@ -74,9 +74,20 @@ export function Navbar() {
               {label}
             </a>
           ))}
+          <button
+            type="button"
+            className="menu-report"
+            onClick={() => { setOpen(false); onGetReport?.(); }}
+          >
+            Get my PDI report
+          </button>
         </nav>
 
         <div style={{ display: 'flex', gap: 10 }}>
+          <button type="button" className="btn ghost top report-btn" onClick={onGetReport}>
+            Get PDI Report
+          </button>
+
           <a
             className="btn top"
             href={WHATSAPP_URL}
