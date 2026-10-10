@@ -10,7 +10,7 @@ export const whatsappLink = (text) => `https://wa.me/${WHATSAPP_NUMBER}?text=${e
 export const WHATSAPP_URL = whatsappLink('Hi PDI CarVision, I want to book a PDI for my car.');
 
 // TODO before launch: replace the placeholder email and address
-export const CONTACT = { phone: '+91 8448716150', phoneHref: 'tel:+918448716150', email: 'pdi.carvision@outlook.com', address: 'Your office address line 1, Area, City, State – PIN' };
+export const CONTACT = { phone: '+91 8448716150', phoneHref: 'tel:+918448716150', email: 'pdi.carvision@outlook.com', address: '308 E babarpur Shahdara Delhi 110032' };
 
 export const NAV = [['home', 'Home'], ['about', 'About'], ['services', 'Services'], ['contact', 'Contact']];
 
