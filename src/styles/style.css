@@ -334,3 +334,7 @@ footer{--bg:#080f1c;--panel:#0d1830;--line:#1d2b47;--ink:#eaf0f8;--mute:#8d9cb3;
     color:#fff;font:inherit;font-weight:700;text-align:left;cursor:pointer}
 }
 @media(max-width:1180px) and (min-width:941px){.nav .report-btn{padding:11px 16px;font-size:15px}}
+
+/* Hero height cap: on very tall screens (e.g. a phone with Chrome "Desktop site" on)
+   "full screen height" became ~2200px and left a big empty gap under the cards. */
+.hx{min-height:min(calc(100svh - 39px), 900px)}
