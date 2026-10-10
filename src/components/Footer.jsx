@@ -53,4 +53,9 @@ export function Footer({onGetReport}) {
 }
 
 /* Floating button: opens WhatsApp chat with +91 96961 27630 */
-export const WhatsApp = () => <a className="wa" {...wa} aria-label="Chat on WhatsApp"><Whatsapp size={32} /></a>;
+export const WhatsApp = () => (
+  <a className="wa wa-cta wa-float" {...wa} aria-label="Book your car PDI today on WhatsApp">
+    <Whatsapp size={40} />
+    <span>Book your{' '}<br />car PDI today</span>
+  </a>
+);

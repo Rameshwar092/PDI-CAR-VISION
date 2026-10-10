@@ -385,3 +385,15 @@ main[hidden]{display:none!important}
 .why{grid-template-columns:repeat(5,1fr);gap:18px}
 @media(max-width:1100px){.why{grid-template-columns:repeat(6,1fr)}.why > *{grid-column:span 2}.why > :nth-child(4){grid-column:2/4}.why > :nth-child(5){grid-column:4/6}}
 @media(max-width:940px){.why{grid-template-columns:1fr 1fr}.why > *,.why > :nth-child(4),.why > :nth-child(5){grid-column:auto}.why > :last-child:nth-child(odd){grid-column:1/-1}}
+
+
+/* ===== Floating WhatsApp button: green "Book your car PDI today" pill (bottom-right) ===== */
+.wa.wa-float{width:auto;height:auto;border-radius:999px;background:#4caf3e;display:inline-flex;align-items:center;gap:14px;
+  padding:12px 28px 12px 16px;font-size:18px;box-shadow:0 14px 34px -10px #000a}
+.wa.wa-float:hover{background:#43a035}
+.hero-offer{padding-right:0}
+@media(max-width:600px){
+  .wa.wa-float{right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));gap:9px;padding:8px 16px 8px 9px;font-size:12.5px;letter-spacing:.05em}
+  .wa.wa-float svg{width:28px;height:28px}
+  .wa.wa-float span br{display:none}
+}
