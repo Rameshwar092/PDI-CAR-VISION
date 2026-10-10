@@ -363,3 +363,19 @@ main[hidden]{display:none!important}
 .legal h2{max-width:none}
 .on-legal .links a.on{background:transparent;border-color:transparent;color:#d6dde6}
 .on-legal .links a.on:after{display:none}
+
+
+/* ===== Hero: price + WhatsApp "Book your car PDI today" button ===== */
+.hero-offer{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:6px;padding-right:84px}
+.hx .hero-price{margin:0;color:#fff;font:italic 800 clamp(26px,3.2vw,38px)/1.2 'Sora','DM Sans',sans-serif;letter-spacing:.01em;text-shadow:0 2px 18px #0007;max-width:none}
+.hero-price b{color:#fff}
+.wa-cta{display:inline-flex;align-items:center;gap:16px;background:#4caf3e;color:#fff;border-radius:999px;padding:14px 34px 14px 20px;
+  font:600 clamp(17px,1.8vw,22px)/1.15 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.06em;
+  box-shadow:0 14px 34px -14px #4caf3eaa;transition:transform .2s,background .2s}
+.wa-cta:hover{background:#43a035;transform:translateY(-3px)}
+.wa-cta svg{flex:none;color:#fff}
+@media(max-width:600px){
+  .hero-offer{flex-direction:column;align-items:stretch;text-align:center;padding-right:0}
+  .wa-cta{justify-content:center;padding:14px 22px}
+  .wa-cta span br{display:none}
+}

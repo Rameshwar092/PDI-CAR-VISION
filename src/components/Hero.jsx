@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
-import { HIGHLIGHTS } from '../data.js';
+import { HIGHLIGHTS, WHATSAPP_URL } from '../data.js';
+import { Whatsapp } from './Icons.jsx';
 import bmw from '../assets/bmw-m3.png';
 
 export default function Hero() {
@@ -82,6 +83,23 @@ export default function Hero() {
               </div>
             </div>
           ))}
+        </div>
+                {/* Price + WhatsApp booking button */}
+        <div className="hero-offer">
+          <p className="hero-price">
+            Starting @ <b>&#8377;2,499/-</b> Only
+          </p>
+
+          <a
+            className="wa-cta"
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Book your car PDI today on WhatsApp"
+          >
+            <Whatsapp size={44} />
+            <span>Book your{' '}<br />car PDI today</span>
+          </a>
         </div>
 
       </div>
