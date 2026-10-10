@@ -14,6 +14,9 @@ export const Clock = ({ size = 48 }) => (
 export const Shield = ({ size = 48 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.500 8-8 9-4.500-1-8-4-8-9V6z"/><path d="M8.500 12l2.500 2.500 4.500-5"/></svg>
 );
+export const Award = ({ size = 48 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.600 13.900L7 22l5-3 5 3-1.600-8.100"/><path d="M12 6.300l.9 1.800 2 .3-1.450 1.400.350 2L12 10.850l-1.800.950.350-2L9.100 8.400l2-.3z"/></svg>
+);
 export const Target = ({ size = 48 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.500"/></svg>
 );

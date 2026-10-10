@@ -1,4 +1,4 @@
-import { Audit, Eye, Chart, Clock, Shield, Target, Doc, Wrench, Engine, Obd, Battery, Clipboard } from './components/Icons.jsx';
+import { Audit, Eye, Chart, Clock, Shield, Target, Doc, Wrench, Engine, Obd, Battery, Clipboard, Award} from './components/Icons.jsx';
 
 export const CITIES = ['Delhi', 'Gurgaon', 'Noida', 'Faridabad', 'Ghaziabad', 'Manesar', 'Sohna', 'Bahadurgarh', 'Meerut', 'Panipat', 'Rohtak', 'Hisar'];
 export const FORM_CITIES = ['Delhi', 'Gurgaon', 'Noida', 'Faridabad', 'Ghaziabad', 'Meerut', 'Other'];
@@ -22,6 +22,7 @@ export const HIGHLIGHTS = [
 export const WHY = [
   { icon: Clock, title: 'Speed', text: 'Same-day inspections and a report within hours.' },
   { icon: Shield, title: 'Trust', text: 'Paid only by you, with zero dealer influence.' },
+  { icon: Award, title: 'Experience', text: 'Run by industry experts with 10+ years of PDI experience.' },
   { icon: Target, title: 'Accuracy', text: '3,200+ checkpoints and a full diagnostic scan.' },
   { icon: Doc, title: 'Compliance', text: 'Invoice, chassis and paperwork checked on every car.' },
 ];
