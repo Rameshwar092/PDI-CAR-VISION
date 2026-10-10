@@ -338,3 +338,28 @@ footer{--bg:#080f1c;--panel:#0d1830;--line:#1d2b47;--ink:#eaf0f8;--mute:#8d9cb3;
 /* Hero height cap: on very tall screens (e.g. a phone with Chrome "Desktop site" on)
    "full screen height" became ~2200px and left a big empty gap under the cards. */
 .hx{min-height:min(calc(100svh - 39px), 900px)}
+
+
+/* ===== Privacy Policy / Terms & Conditions pages ===== */
+.legal{padding:150px 0 90px;background:var(--bg)}
+.legal .wrap{max-width:860px}
+.legal-back{display:inline-block;color:var(--blue);font-weight:600;margin-bottom:22px}
+.legal-back:hover{text-decoration:underline}
+.legal h1{font:800 clamp(30px,4vw,46px)/1.1 'Bricolage Grotesque','DM Sans',sans-serif;color:var(--ink);margin:0 0 8px}
+.legal-date{color:var(--mute);font-size:14px;margin-bottom:28px}
+.legal-intro{color:var(--ink);margin-bottom:16px}
+.legal section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-top:16px}
+.legal h2{font:700 20px/1.3 'Sora','DM Sans',sans-serif;color:var(--ink);margin:0 0 10px}
+.legal p,.legal li{color:var(--mute);font-size:16px;line-height:1.65}
+.legal section p+p,.legal ul+p{margin-top:10px}
+.legal ul{margin:10px 0 0;padding-left:20px;display:grid;gap:8px}
+.legal li b{color:var(--ink)}
+.legal-also{margin-top:30px}
+.legal-also a{color:var(--blue);font-weight:600}
+@media(max-width:940px){.legal{padding:115px 0 70px}.legal section{padding:18px}}
+main[hidden]{display:none!important}
+.on-legal .nav{background:linear-gradient(160deg,#4b5057,#2a2e33);border-bottom-color:#ffffff1f}
+.on-legal .nav:before{opacity:.6}
+.legal h2{max-width:none}
+.on-legal .links a.on{background:transparent;border-color:transparent;color:#d6dde6}
+.on-legal .links a.on:after{display:none}
