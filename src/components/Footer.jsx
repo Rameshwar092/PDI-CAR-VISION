@@ -2,7 +2,7 @@ import logo from '../assets/logo.png';
 import { BRANDS, CITIES, CONTACT, WHATSAPP_URL } from '../data.js';
 import { Chat, Facebook, Youtube, Instagram, Call, Mail, Hours, Pin, ArrowUp, Whatsapp } from './Icons.jsx';
 
-const SOCIAL = [ ['Instagram', Instagram]];
+const SOCIAL = [ ['Instagram', Instagram , 'https://www.instagram.com/pdicarvision/'], ['Facebook', Facebook, 'https://www.facebook.com/share/19xjNapbv9/'], ['YouTube', Youtube, 'https://www.youtube.com/@pdicarvision'] ];
 const LEGAL = [['Home', '#home'], ['About', '#about'], ['Services', '#services'], ['Contact', '#contact'],['Privacy Policy', '#privacy-policy'], ['Terms & Conditions', '#terms']];
 const INFO = [
   [Call, CONTACT.phone, CONTACT.phoneHref],
@@ -22,7 +22,7 @@ export function Footer({onGetReport}) {
           <p>Independent pre-delivery inspection for new car buyers: 3,200+ checkpoints, one clear report, zero dealer influence.</p>
           <a className="btn" {...wa}><Chat size={20} />Book your car PDI today</a>
           <div className="soc">
-            {SOCIAL.map(([name, Icon]) => <a key={name} href="#" aria-label={name}><Icon /></a>)}
+            {SOCIAL.map(([name, Icon, url]) => <a key={name} href={url} target="_blank" rel="noopener noreferrer" aria-label={`PDI CarVision on ${name}`}><Icon /></a>)}
           </div>
         </div>
         <div>
