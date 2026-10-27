@@ -12,8 +12,8 @@ createRoot(document.getElementById('root')).render(
 
 // Google Ads: count WhatsApp and phone-call clicks as conversions
 const GOOGLE_ADS_ID = 'AW-18379870900';
-const WHATSAPP_LABEL = 'PASTE_WHATSAPP_LABEL_HERE';
-const CALL_LABEL = 'PASTE_CALL_LABEL_HERE';
+const WHATSAPP_LABEL = 'VIs7CJHY06sdELSlmrxE';
+const CALL_LABEL = 'k3G8CPq11KsdELSlmrxE';
 
 document.addEventListener('click', (e) => {
   const link = e.target.closest('a');
